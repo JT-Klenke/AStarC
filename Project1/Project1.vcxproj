@@ -130,9 +130,11 @@
   <ItemGroup>
     <ClCompile Include="LinkedList.c" />
     <ClCompile Include="Main.c" />
+    <ClCompile Include="AStarCode.c" />
     <ClCompile Include="Table.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStarCode.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Table.h" />
   </ItemGroup>

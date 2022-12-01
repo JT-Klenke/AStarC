@@ -24,12 +24,18 @@
     <ClCompile Include="Table.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AStarCode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AStarCode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

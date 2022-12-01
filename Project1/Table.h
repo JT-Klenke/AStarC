@@ -23,6 +23,6 @@ struct PointInfo {
 
 struct PointInfo** makeTable();
 
-struct PointInfo* getInfo(struct PointInfo** pTable, int x, int y);
+struct PointInfo* getInfo(struct PointInfo** ppTable, int x, int y);
 
 void putInfo(struct PointInfo** pTable, int x, int y, int gCost, int hCost, struct Point* pParent);

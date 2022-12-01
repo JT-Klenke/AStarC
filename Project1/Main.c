@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "Table.h"
+#include "AStarCode.h"
 
 
 int main(int argc, char** argv) {
@@ -26,8 +27,8 @@ int main(int argc, char** argv) {
 	ppTable = makeTable();
 
 	putInfo(ppTable, p1.x, p1.y, 100, 100, &p2);
-	putInfo(ppTable, p2.x, p2.y, 10, 100, &p3);
-	putInfo(ppTable, p3.x, p3.y, 100, 100, &p3);
+	putInfo(ppTable, p2.x, p2.y, 100, 100, &p3);
+	putInfo(ppTable, p3.x, p3.y, 10, 100, &p3);
 
 	
 	
