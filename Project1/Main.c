@@ -11,8 +11,8 @@ int main(int argc, char** argv) {
 	//struct PointInfo* pP22Info;
 	struct Point* min;
 	struct Point p1;
-	p1.x = 1;
-	p1.y = 2;
+	p1.x = 0;
+	p1.y = 0;
 
 	struct Point p2;
 	p2.x = 3;
@@ -25,9 +25,9 @@ int main(int argc, char** argv) {
 	
 	ppTable = makeTable();
 
-	putInfo(ppTable, 100, 200, 1, 16, &p2);
-	putInfo(ppTable, 300, 400, 10, 100, &p3);
-	putInfo(ppTable, 3, 100, 16, 17, &p3);
+	putInfo(ppTable, p1.x, p1.y, 100, 16, &p2);
+	putInfo(ppTable, p2.x, p2.y, 10, 100, &p3);
+	putInfo(ppTable, p3.x, p3.y, 1600, 17, &p3);
 
 	
 	
