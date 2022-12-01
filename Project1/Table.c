@@ -17,10 +17,9 @@ struct PointInfo* getInfo(struct PointInfo** ppTable, int x, int y) {
 void putInfo(struct PointInfo** ppTable, int x, int y, int gCost, int hCost, struct Point* pParent) {
 	struct PointInfo* pPoint, *pIntoTable;
 	pPoint = getInfo(ppTable, x, y);
-	if (pPoint == NULL) {
+	if (NULL == pPoint) {
 		pPoint = calloc(1, sizeof(struct PointInfo));
 		ppTable[getOffset(x, y)] = pPoint;
-
 	}
 	pPoint->gCost = gCost;
 	pPoint->hCost = hCost;

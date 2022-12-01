@@ -15,19 +15,19 @@ int main(int argc, char** argv) {
 	p1.y = 0;
 
 	struct Point p2;
-	p2.x = 3;
-	p2.y = 4;
+	p2.x = 30;
+	p2.y = 40;
 
 	struct Point p3;
-	p3.x = 3;
-	p3.y = 1;
+	p3.x = 30;
+	p3.y = 10;
 
 	
 	ppTable = makeTable();
 
-	putInfo(ppTable, p1.x, p1.y, 100, 16, &p2);
+	putInfo(ppTable, p1.x, p1.y, 100, 100, &p2);
 	putInfo(ppTable, p2.x, p2.y, 10, 100, &p3);
-	putInfo(ppTable, p3.x, p3.y, 1600, 17, &p3);
+	putInfo(ppTable, p3.x, p3.y, 100, 100, &p3);
 
 	
 	

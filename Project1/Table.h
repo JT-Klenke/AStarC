@@ -10,8 +10,8 @@ From point table:
 	
 */
 
-#define X_SIZE 5
-#define Y_SIZE 5
+#define X_SIZE 50
+#define Y_SIZE 50
 
 struct PointInfo {
 	int gCost;

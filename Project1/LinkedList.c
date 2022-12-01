@@ -27,15 +27,15 @@ unsigned char contains(struct LinkedList* pList, struct Point* pPoint) {
 }
 
 struct Point* extractMin(struct LinkedList* pList, struct PointInfo** ppTable) {   
-	struct LinkedListNode *pMinPrevious, *pCurrent, *pPrevious;
+	struct LinkedListNode **ppMinPrevious, *pCurrent, *pPrevious;
 	struct Point *pMinPoint, *pReturnPoint;
 	struct PointInfo *pMinInfo, *pCurrentInfo;
 	int minFCost;
-	if (pList->pFirst == NULL) return NULL; //empty list
+	if (NULL == pList->pFirst) return NULL; //empty list
 	pPrevious = pList->pFirst;
 	pCurrent = pPrevious->pNext;
 
-	pMinPrevious = pPrevious;
+	ppMinPrevious = &(pList->pFirst);
 	pMinPoint = &(pPrevious->p);
 	pMinInfo = getInfo(ppTable, pMinPoint->x, pMinPoint->y);
 	minFCost = pMinInfo->gCost + pMinInfo->hCost;
@@ -43,7 +43,7 @@ struct Point* extractMin(struct LinkedList* pList, struct PointInfo** ppTable) {
 	while (pCurrent != NULL) {
 		pCurrentInfo = getInfo(ppTable, (pCurrent->p).x, (pCurrent->p).y);
 		if ((pCurrentInfo->gCost + pCurrentInfo->hCost) < minFCost) {
-			pMinPrevious = pPrevious;
+			ppMinPrevious = &(pPrevious->pNext);
 			pMinPoint = &(pCurrent->p);
 			pMinInfo = getInfo(ppTable, pMinPoint->x, pMinPoint->y);
 			minFCost = pMinInfo->gCost + pMinInfo->hCost;
@@ -51,18 +51,17 @@ struct Point* extractMin(struct LinkedList* pList, struct PointInfo** ppTable) {
 		pPrevious = pCurrent;
 		pCurrent = pCurrent->pNext;
 	}
-
 	
 	pReturnPoint = malloc(sizeof(struct Point*));
 	pReturnPoint->x = pMinPoint->x;
 	pReturnPoint->y = pMinPoint->y;
 
-	pCurrent = pMinPrevious->pNext;
+	pCurrent = (*ppMinPrevious);
 
 	if (pCurrent != NULL){
-		pMinPrevious->pNext = pCurrent->pNext;
+		(*ppMinPrevious) = pCurrent->pNext;
 	}else{
-		pMinPrevious->pNext = NULL;
+		(*ppMinPrevious) = NULL;
 	}
 	
 	return pReturnPoint;
