@@ -19,6 +19,7 @@ struct PointInfo {
 	int gCost;
 	int hCost;
 	unsigned char isObstacle;
+	unsigned char isClosed;
 	struct Point* parent;
 };
 

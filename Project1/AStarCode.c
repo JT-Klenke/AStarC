@@ -6,15 +6,13 @@
 #define ORTHOGONAL_DISTANCE 10
 
 int getHCost(int x, int y, int endX, int endY) {
-	int xDist, yDist, ans;
+	int xDist, yDist;
 	xDist = abs(x - endX);
 	yDist = abs(y - endY);
 	if (xDist > yDist) {
-		ans = (yDist * DIAGONAL_DISTANCE + (xDist - yDist) * ORTHOGONAL_DISTANCE);
-		return ans;
+		return (yDist * DIAGONAL_DISTANCE + (xDist - yDist) * ORTHOGONAL_DISTANCE);
 	}
-	ans = (xDist * DIAGONAL_DISTANCE + (yDist - xDist) * ORTHOGONAL_DISTANCE);
-	return ans;
+	return (xDist * DIAGONAL_DISTANCE + (yDist - xDist) * ORTHOGONAL_DISTANCE);
 }
 
 struct LinkedList* buildPath(struct PointInfo** ppTable, struct Point* pEndPoint) {
@@ -35,7 +33,7 @@ struct LinkedList* buildPath(struct PointInfo** ppTable, struct Point* pEndPoint
 }
 
 struct LinkedList* findPath(struct PointInfo** ppTable, int startX, int startY, int endX, int endY) {
-	struct LinkedList *pEndList, priorityList, closedList;
+	struct LinkedList* pEndList, priorityList;// , closedList;
 	struct PointInfo *pCurrentInfo, *pAdjacentInfo;
 	struct Point startPoint, *pCurrent, adjacentPoint;
 	int i, j, currentFCost, maybeGCost, adjacent[8][3];
@@ -50,7 +48,7 @@ struct LinkedList* findPath(struct PointInfo** ppTable, int startX, int startY, 
 		adjacent[7][0] = -1; adjacent[7][1] = 0; adjacent[7][2] = ORTHOGONAL_DISTANCE;
 	}
 	priorityList.pFirst = NULL;
-	closedList.pFirst = NULL; 
+	//closedList.pFirst = NULL; 
 	(startPoint.x) = startX;
 	(startPoint.y) = startY;
 	putInfo(ppTable, startX, startY, 0, getHCost(startX, startY, endX, endY), NULL);
@@ -61,6 +59,7 @@ struct LinkedList* findPath(struct PointInfo** ppTable, int startX, int startY, 
 	while (1) {
 		j++;
 		pCurrent = extractMin(&priorityList, ppTable);
+		//add(&closedList, pCurrent);
 		if (NULL == pCurrent) {
 			return NULL;
 		}
@@ -78,12 +77,13 @@ struct LinkedList* findPath(struct PointInfo** ppTable, int startX, int startY, 
 			maybeGCost = pCurrentInfo->gCost + adjacent[i][2];
 			pAdjacentInfo = getInfo(ppTable, adjacentPoint.x, adjacentPoint.y);
 			if (TRUE == pAdjacentInfo->isObstacle) continue;
-			if (TRUE == contains(&closedList, &adjacentPoint) && maybeGCost >= pAdjacentInfo->gCost) continue;
+			//if (TRUE == contains(&closedList, &adjacentPoint) && maybeGCost >= pAdjacentInfo->gCost) continue;
 			if (pAdjacentInfo->gCost > maybeGCost) {
 				putInfo(ppTable, adjacentPoint.x, adjacentPoint.y, maybeGCost, getHCost(adjacentPoint.x, adjacentPoint.y, endX, endY), pCurrent);
 				add(&priorityList, &adjacentPoint);
 			}
 		}
+		
 	}
 	return pEndList;
 }
