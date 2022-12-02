@@ -6,10 +6,10 @@
 
 
 int main(int argc, char** argv) {
-	
+	/*
 	struct LinkedList theList;
 	struct PointInfo** ppTable;
-	//struct PointInfo* pP22Info;
+	struct PointInfo* pP22Info;
 	struct Point* min;
 	struct Point p1;
 	p1.x = 0;
@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 
 	
 	
-	theList.pFirst = 0;
+	theList.pFirst = NULL;
 	add(&theList, &p2);
 	add(&theList, &p1);
 	add(&theList, &p3);
@@ -42,15 +42,14 @@ int main(int argc, char** argv) {
 
 	printf("%d,%d\n\n\n", min->x, min->y);
 
-	/*
-	pP22Info = getInfo(pTable, 1, 2);
+	pP22Info = getInfo(ppTable, 30, 40);
 
 	printf("%d\n", pP22Info->gCost);
 
 	printf("%d\n", pP22Info->hCost);
 
 	printf("%d\n\n", (pP22Info->parent)->x);
-	*/
+	
 
 
 
@@ -62,8 +61,37 @@ int main(int argc, char** argv) {
 	printf("p2: %d\n",contains(&theList, &p2));
 
 	printf("p3: %d\n", contains(&theList, &p3));
+	*/
+
+	struct PointInfo** ppTable, *pInfo;
+	struct LinkedList* pPath;
+	int i, startBox, endBox;
+	ppTable = makeTable();
+	startBox = 2;
+	endBox = 666;
+
+	for (i = startBox; i <= endBox; i++) {
+		makeObstacle(ppTable, startBox, i);
+		makeObstacle(ppTable, i, startBox);
+		makeObstacle(ppTable, endBox, i);
+		makeObstacle(ppTable, i, endBox);
+	}
+
+	makeObstacle(ppTable, 1, 4);
+	removeObstacle(ppTable, startBox, startBox);
+	removeObstacle(ppTable, startBox+1, startBox);
+	removeObstacle(ppTable, startBox, startBox+1);
+
+	//makeObstacle(ppTable, 1, 1);
+
+
+	pPath = findPath(ppTable, 0, 0, 999, 999);
 	
-	
-	
+
+	//printf("%d", pInfo->isObstacle);
+
+	printList(pPath);
+
+
 	return 0;
 }

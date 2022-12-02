@@ -10,18 +10,24 @@ From point table:
 	
 */
 
-#define X_SIZE 50
-#define Y_SIZE 50
+#define X_SIZE 1000
+#define Y_SIZE 1000
+#define TRUE 1
+#define FALSE 0
 
 struct PointInfo {
 	int gCost;
 	int hCost;
-	unsigned char isTraversable;
+	unsigned char isObstacle;
 	struct Point* parent;
 };
 
 
 struct PointInfo** makeTable();
+
+void makeObstacle(struct PointInfo** ppTable, int x, int y);
+
+void removeObstacle(struct PointInfo** ppTable, int x, int y);
 
 struct PointInfo* getInfo(struct PointInfo** ppTable, int x, int y);
 

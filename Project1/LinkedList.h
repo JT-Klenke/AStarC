@@ -1,7 +1,6 @@
 #pragma once
 #include "Table.h"
-#define TRUE 1
-#define FALSE 0
+
 /*
 From list:
 - get min (removes that element)
