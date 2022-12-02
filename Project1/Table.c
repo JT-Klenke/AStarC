@@ -33,10 +33,6 @@ void removeObstacle(struct PointInfo** ppTable, int x, int y) {
 void putInfo(struct PointInfo** ppTable, int x, int y, int gCost, int hCost, struct Point* pParent) {
 	struct PointInfo* pPoint;
 	pPoint = getInfo(ppTable, x, y);
-	if (NULL == pPoint) {
-		pPoint = calloc(1, sizeof(struct PointInfo));
-		ppTable[getOffset(x, y)] = pPoint;
-	}
 	pPoint->gCost = gCost;
 	pPoint->hCost = hCost;
 	pPoint->parent = pParent;

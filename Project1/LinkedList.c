@@ -30,16 +30,19 @@ unsigned char contains(struct LinkedList* pList, struct Point* pPoint) {
 	return FALSE;
 }
 
-struct Point* extractMin(struct LinkedList* pList, struct PointInfo** ppTable) {  
+void extractMin(struct LinkedList* pList, struct PointInfo** ppTable, struct Point* pReturnPoint) {  
 	/*Searches through the linked list in order for each node: check its fCost in ppTable
 	if the node's fCost is lower than min, min related values are updated.
 	Upon reaching the end of the list the node before the minimum node is updated to splice out
 	the minimum node and the minimum point is returned*/
 	struct LinkedListNode **ppMinPrevious, *pCurrent, *pPrevious;
-	struct Point *pMinPoint, *pReturnPoint;
+	struct Point *pMinPoint;
 	struct PointInfo *pMinInfo, *pCurrentInfo;
 	int minFCost;
-	if (NULL == pList->pFirst) return NULL; //empty list
+	if (NULL == pList->pFirst) {//empty list
+		pReturnPoint = NULL;
+		return;
+	}
 	pPrevious = pList->pFirst;
 	pCurrent = pPrevious->pNext;
 
@@ -63,7 +66,7 @@ struct Point* extractMin(struct LinkedList* pList, struct PointInfo** ppTable) {
 	}
 	
 	//stores minimum point information in safe place to be returned
-	pReturnPoint = malloc(sizeof(struct Point*));
+	//returnPoint = malloc(sizeof(struct Point*));
 	pReturnPoint->x = pMinPoint->x;
 	pReturnPoint->y = pMinPoint->y;
 
@@ -71,7 +74,7 @@ struct Point* extractMin(struct LinkedList* pList, struct PointInfo** ppTable) {
 	pCurrent = (*ppMinPrevious);
 	(*ppMinPrevious) = pCurrent->pNext;
 	
-	return pReturnPoint;
+	return;
 }
 
 
