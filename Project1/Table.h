@@ -18,8 +18,10 @@ From point table:
 struct PointInfo {
 	int gCost;
 	int hCost;
+	int fCost;
+	int index;
 	unsigned char isObstacle;
-	unsigned char isClosed;
+	unsigned char isOpen;
 	struct Point* parent;
 };
 
@@ -30,6 +32,6 @@ void makeObstacle(struct PointInfo** ppTable, int x, int y);
 
 void removeObstacle(struct PointInfo** ppTable, int x, int y);
 
-struct PointInfo* getInfo(struct PointInfo** ppTable, int x, int y);
+inline struct PointInfo* getInfo(struct PointInfo** ppTable, int x, int y);
 
 void putInfo(struct PointInfo** pTable, int x, int y, int gCost, int hCost, struct Point* pParent);

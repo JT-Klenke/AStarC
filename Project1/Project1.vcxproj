@@ -131,10 +131,12 @@
     <ClCompile Include="LinkedList.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="AStarCode.c" />
+    <ClCompile Include="PriorityQueue.c" />
     <ClCompile Include="Table.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AStarCode.h" />
+    <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Table.h" />
   </ItemGroup>

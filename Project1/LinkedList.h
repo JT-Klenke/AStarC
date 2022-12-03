@@ -25,7 +25,7 @@ void add(struct LinkedList* pList, struct Point* pPoint);
 
 unsigned char contains(struct LinkedList* pList, struct Point* pPoint);
 
-void extractMin(struct LinkedList* pList, struct PointInfo** pTable, struct Point* pReturnPoint);
+struct Point* extractMin(struct LinkedList* pList, struct PointInfo** pTable);
 
 void printPoint(struct Point* pPoint);
 

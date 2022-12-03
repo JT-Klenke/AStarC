@@ -4,12 +4,26 @@
 #include "LinkedList.h"
 #include "Table.h"
 
+struct LinkedListNode* getLinkedListNodeMem() {
+	static int i = 0; //number of units parsed out
+#define NUM_BLOCKS 100000
+	static struct LinkedListNode* pNextOpenBlock;
+	struct LinkedListNode* pReturnBlock;
+
+	if (0 == i) pNextOpenBlock = calloc(NUM_BLOCKS, sizeof(*pNextOpenBlock));
+	pReturnBlock = pNextOpenBlock;
+	pNextOpenBlock++;
+	i++;
+	if (i >= NUM_BLOCKS) i = 0;
+	return pReturnBlock;
+}
+
 void add(struct LinkedList* pList, struct Point* pPoint) {
 	/*inserts new point into the beginning of pList*/
 	
 	//create new node with next pFirst and pPoint p
 	struct LinkedListNode* pNew;
-	pNew = (struct LinkedListNode*)malloc(sizeof(struct LinkedListNode));
+	pNew = getLinkedListNodeMem();
 	memcpy(&(pNew->p), pPoint, sizeof(*pPoint));
 	pNew->pNext = pList->pFirst;
 	
@@ -30,7 +44,7 @@ unsigned char contains(struct LinkedList* pList, struct Point* pPoint) {
 	return FALSE;
 }
 
-void extractMin(struct LinkedList* pList, struct PointInfo** ppTable, struct Point* pReturnPoint) {  
+struct Point* extractMin(struct LinkedList* pList, struct PointInfo** ppTable) {
 	/*Searches through the linked list in order for each node: check its fCost in ppTable
 	if the node's fCost is lower than min, min related values are updated.
 	Upon reaching the end of the list the node before the minimum node is updated to splice out
@@ -39,10 +53,7 @@ void extractMin(struct LinkedList* pList, struct PointInfo** ppTable, struct Poi
 	struct Point *pMinPoint;
 	struct PointInfo *pMinInfo, *pCurrentInfo;
 	int minFCost;
-	if (NULL == pList->pFirst) {//empty list
-		pReturnPoint = NULL;
-		return;
-	}
+	if (NULL == pList->pFirst) return NULL;//empty list
 	pPrevious = pList->pFirst;
 	pCurrent = pPrevious->pNext;
 
@@ -64,17 +75,16 @@ void extractMin(struct LinkedList* pList, struct PointInfo** ppTable, struct Poi
 		pPrevious = pCurrent;
 		pCurrent = pCurrent->pNext;
 	}
-	
-	//stores minimum point information in safe place to be returned
-	//returnPoint = malloc(sizeof(struct Point*));
-	pReturnPoint->x = pMinPoint->x;
-	pReturnPoint->y = pMinPoint->y;
-
 	//splices out minimum point's node
 	pCurrent = (*ppMinPrevious);
 	(*ppMinPrevious) = pCurrent->pNext;
+
+	//stores minimum point information in slipced out point
+	pCurrent->p.x = pMinPoint->x;
+	pCurrent->p.y = pMinPoint->y;
+
 	
-	return;
+	return (struct Point*)pCurrent;
 }
 
 
@@ -90,3 +100,4 @@ void printList(struct LinkedList* pList) {
 		pNode = pNode->pNext;
 	}
 }
+

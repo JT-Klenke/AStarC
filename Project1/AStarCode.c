@@ -36,7 +36,7 @@ struct LinkedList* findPath(struct PointInfo** ppTable, int startX, int startY, 
 	struct LinkedList* pEndList, priorityList;// , closedList;
 	struct PointInfo *pCurrentInfo, *pAdjacentInfo;
 	struct Point startPoint, *pCurrent, minPoint, adjacentPoint;
-	int i, j, currentFCost, maybeGCost, adjacent[8][3];
+	int i, maybeGCost, adjacent[8][3];
 	{
 		adjacent[0][0] = 1; adjacent[0][1] = 1; adjacent[0][2] = DIAGONAL_DISTANCE;
 		adjacent[1][0] = -1; adjacent[1][1] = -1; adjacent[1][2] = DIAGONAL_DISTANCE;
@@ -52,21 +52,16 @@ struct LinkedList* findPath(struct PointInfo** ppTable, int startX, int startY, 
 	(startPoint.y) = startY;
 	putInfo(ppTable, startX, startY, 0, getHCost(startX, startY, endX, endY), NULL);
 
-	j = 0;
 	add(&priorityList, &startPoint);
 
 	while (1) {
-		j++;
-		extractMin(&priorityList, ppTable, &minPoint);
-		pCurrent = &minPoint;
+		pCurrent = extractMin(&priorityList, ppTable);
 		if (NULL == pCurrent) {
 			return NULL;
 		}
 		pCurrentInfo = getInfo(ppTable, pCurrent->x, pCurrent->y);
-		currentFCost = pCurrentInfo->gCost + pCurrentInfo->hCost;
 		if (pCurrent->x == endX && pCurrent->y == endY) {
 			pEndList = buildPath(ppTable, pCurrent);
-			printf("%d\n", j);
 			break;
 		}
 		for (i = 0; i < 8; i++){
