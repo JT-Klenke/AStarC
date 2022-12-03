@@ -31,7 +31,7 @@ struct LinkedList* buildPath(struct PointInfo** ppTable, int endPointX, int endP
 	point.x = pPointInfo->parentX;
 	point.y = pPointInfo->parentY;
 	
-	while (pPointInfo->x != pPointInfo->parentX && pPointInfo->y != pPointInfo->parentY) {
+	while (pPointInfo->x != pPointInfo->parentX || pPointInfo->y != pPointInfo->parentY) {
 		add(pPath, &point);
 		pPointInfo = getInfo(ppTable, point.x, point.y);
 		point.x = pPointInfo->parentX;
