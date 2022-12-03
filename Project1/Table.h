@@ -16,13 +16,16 @@ From point table:
 #define FALSE 0
 
 struct PointInfo {
+	int x;
+	int y;
 	int gCost;
 	int hCost;
 	int fCost;
 	int index;
+	int parentX;
+	int parentY;
 	unsigned char isObstacle;
 	unsigned char isOpen;
-	struct Point* parent;
 };
 
 

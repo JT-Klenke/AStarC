@@ -24,16 +24,6 @@ struct PointInfo** makeTable() {
 	return calloc(X_SIZE * Y_SIZE, sizeof(struct PointInfo*));
 }
 
-inline struct PointInfo* getInfo(struct PointInfo** ppTable, int x, int y) {
-	int offset;
-	offset = getOffset(x, y);
-	if (NULL == ppTable[offset]) {
-		ppTable[offset] = getPointInfoMem();
-		ppTable[offset]->gCost = 1000000;
-	}
-	return ppTable[offset];
-}
-
 void makeObstacle(struct PointInfo** ppTable, int x, int y) {
 	struct PointInfo* pPoint;
 	pPoint = getInfo(ppTable, x, y);
@@ -46,6 +36,16 @@ void removeObstacle(struct PointInfo** ppTable, int x, int y) {
 	pPoint->isObstacle = FALSE;
 }
 
+inline struct PointInfo* getInfo(struct PointInfo** ppTable, int x, int y) {
+	int offset;
+	offset = getOffset(x, y);
+	if (NULL == ppTable[offset]) {
+		ppTable[offset] = getPointInfoMem();
+		ppTable[offset]->gCost = 1000000;
+	}
+	return ppTable[offset];
+}
+/*
 void putInfo(struct PointInfo** ppTable, int x, int y, int gCost, int hCost, struct Point* pParent) {
 	struct PointInfo* pPoint;
 	pPoint = getInfo(ppTable, x, y);
@@ -53,4 +53,17 @@ void putInfo(struct PointInfo** ppTable, int x, int y, int gCost, int hCost, str
 	pPoint->hCost = hCost;
 	pPoint->fCost = gCost+hCost;
 	pPoint->parent = pParent;
+}
+*/
+
+void putInfo(struct PointInfo** ppTable, int x, int y, int gCost, int hCost, int parentX, int parentY) {
+	struct PointInfo* pPoint;
+	pPoint = getInfo(ppTable, x, y);
+	pPoint->x = x;
+	pPoint->y = y;
+	pPoint->gCost = gCost;
+	pPoint->hCost = hCost;
+	pPoint->fCost = gCost+hCost;
+	pPoint->parentX = parentX;
+	pPoint->parentY = parentY;
 }

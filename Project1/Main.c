@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include "Table.h"
 #include "AStarCode.h"
+#include "PriorityQueue.h"
 
 
 int main(int argc, char** argv) {
@@ -65,8 +66,12 @@ int main(int argc, char** argv) {
 
 	struct PointInfo** ppTable, *pInfo;
 	struct LinkedList* pPath;
+	struct ResizableArray* pQueue;
 	int i, startBox, endBox;
 	ppTable = makeTable();
+	pQueue = makeQueue();
+
+	
 	startBox = 2;
 	endBox = 666;
 
@@ -81,7 +86,7 @@ int main(int argc, char** argv) {
 	removeObstacle(ppTable, startBox, startBox);
 	removeObstacle(ppTable, startBox+1, startBox);
 	removeObstacle(ppTable, startBox, startBox+1);
-
+	
 	//makeObstacle(ppTable, 1, 1);
 
 
@@ -92,6 +97,6 @@ int main(int argc, char** argv) {
 
 	printList(pPath);
 
-
+	
 	return 0;
 }
